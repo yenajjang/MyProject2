@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	xml을 필요로 하는 곳에 dtd가 넘어오므로 dtd를 볼 줄 알아야 한다.
+	dtd란?
+	XML의 태그,속성,변수를 지정하는 언어 xml의 형식을 지정해주는 것
+	<!ELEMENT>
+		<member>
+		  <list no="a1">
+		    <id>admin</id>
+		    <pwd>1234</pwd>
+		    <name first="홍">홍길동</name>
+		    <hp>000-0000-0000</hp>
+		    <from/>
+		  </list>
+		  <list no="a2">
+		    <id>admin</id>
+		    <name>홍길동</name>
+		    <home>000-0000-0000</home>
+		    <from/>
+		  </list>
+		</member>
+	<!ATTLIST>
+	<!ENTITY nbsp " "> =>&nbsp;    
+	<!ENTITY a "aa"> => &a;
+	
+	+ : 1~ 나한텐 필요 없지만 무조건 한번 이상 써야 하는 것
+	* : 0~ 써도되고 안써도되고 여러번써도되고
+	? : 0|1 써도되고 안써도되고 
+	| : 두개중에 하나 선택 (th|td)*(+)
+	default : 1 반드시 한번 써야하는 것
+-->
+<!ELEMENT member (list+)>
+<!ELEMENT list (id,pwd?,name,(hp|home),from)>
+<!ATTLIST list no ID #REQUIRED>
+<!--
+	ID , IDREF(FOREIGN KEY), NOTATION(일반 문자열): 공백을 허용하지 않는다.
+							  CDATA(일반 문자열): 공백을 허용
+	==
+	UNIQUE
+	#REQUIRED : NOT NULL
+	#IMPLIED  : NULL(써도되고 안써도되고)
+	#FIXED	  : DEFAULT
+-->
+<!ELEMENT id (#PCDATA)> <!--id가 붙어있으면 중복하면 안된다. -->
+<!ELEMENT pwd (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ATTLIST name first CDATA #IMPLIED>
+<!ELEMENT hp (#PCDATA)>
+<!ELEMENT home (#PCDATA)>
+<!ELEMENT from EMPTY>  <!--EMPTY 단톡태그 슬러시가 뒤에 붙어야 한다  -->
+<!ATTLIST from nara CDATA #FIXED "한국">
